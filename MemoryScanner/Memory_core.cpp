@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <Windows.h>
 #include <fstream>
+#include <limits>
 
 #include "MemoryScanner.h"
 
@@ -13,12 +14,16 @@
 void MemoryScanner()
 {
 	setlocale(LC_ALL, "Russian");
-	
-	DWORD PID = 0;
+
+	DWORD PID_Mem = 0;
 	std::wcout << L"[+] Введите PID процесса: " << ORANGE;
-	std::wcin >> PID;
+	if (!(std::wcin >> PID_Mem)) {
+		std::wcout<< RED << L"[-] Неверно введён PID процесса" << RESET;
+		std::wcin.clear();
+		std::wcin.ignore(1000000, '\n');
+		return;
+	}
 	std::wcout << RESET;
-	
 
 	std::wofstream file;
 
@@ -28,22 +33,21 @@ void MemoryScanner()
 
 	if (!file.is_open()) {
 		std::wcout << RED << L"[-] Не удалось открыть файл для записи.\n" << L"\n" << RESET;
-		PID = 0;
 		return;
 	}
 	// Что за PID процесса был
-	file << L"PID: " << PID << L"\n";
+	file << L"PID: " << PID_Mem << L"\n";
+	
 
 	HANDLE process = OpenProcess(
 		PROCESS_VM_READ | PROCESS_QUERY_INFORMATION,
 		FALSE,
-		PID
+		PID_Mem
 	);
 	
 	if (process == nullptr) {
 		std::wcout << RED << L"\n[-] Не удалось открыть процесс. Ошибка: " << GetLastError() << L"\n" << RESET;
 		CloseHandle(process);
-		PID = 0;
 		return;
 	}
 
@@ -58,7 +62,7 @@ void MemoryScanner()
 	);
 	if (result == 0) {
 		CloseHandle(process);
-		PID = 0;
+		PID_Mem = 0;
 		return;
 	}
 
@@ -69,12 +73,12 @@ void MemoryScanner()
 
 
 	while (result != 0) {
-		std::wcout << L"\n[+] Чтение номер: "<< count << L"\n";
+		std::wcout << L"\n[+] Чтение номер: "<< ORANGE << count << L"\n" << RESET;
 		file << L"\n[+] Чтение номер: " << count << L"\n";
 
 		if (info.Protect == PAGE_NOACCESS || info.Protect == PAGE_GUARD) {
 			std::wcout << ORANGE << L"\n[-] Не читаемо, следущий\n" << L"\n" << RESET;
-			file << L"\n[-] Не читаемо, следущий\n" << L"\n";
+			file << ORANGE <<L"\n[-] Не читаемо, следущий\n" << L"\n" << RESET;
 			SIZE_T Region = info.RegionSize;
 			LPCVOID Address = info.BaseAddress;
 
@@ -204,8 +208,6 @@ void MemoryScanner()
 	}
 
 	file.close();
-	PID = 0;
-
 	CloseHandle(process);
 	return;
 }
