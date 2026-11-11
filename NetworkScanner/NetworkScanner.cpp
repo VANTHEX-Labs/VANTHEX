@@ -21,7 +21,6 @@
 void NetworkScanner()
 {
     setlocale(LC_ALL, "Russian");
-
     // Создаю файл для записи
     std::wofstream file;
 
@@ -223,6 +222,8 @@ void NetworkScanner()
     // Проверка ввода PID-NAME
     if (!(std::wcin >> pid_name)) {
         std::wcout << RED << L"[-] Ошибка. PID-NAME не был записан\n" << RESET;
+        std::wcin.clear();
+        std::wcin.ignore(1000000, '\n');
 		file << L"[-] Ошибка. PID-NAME не был записан\n";
         CloseHandle(hSnap);
         return;
@@ -230,6 +231,8 @@ void NetworkScanner()
 
     if (pid_name != 1 && pid_name != 2) {
         std::wcout << ORANGE << L"[-] Ошибка ввода PID-NAME\n" << RESET;
+        std::wcin.clear();
+        std::wcin.ignore(1000000, '\n');
 		file << L"[-] Ошибка ввода PID-NAME\n";
         CloseHandle(hSnap);
         return;
@@ -249,6 +252,8 @@ void NetworkScanner()
         // Проверка ввода PID
         if (!(std::wcin >> PID)) {
             std::wcout << RED << L"[-] Ошибка. PID не был прочитан\n" << RESET;
+            std::wcin.clear();
+            std::wcin.ignore(1000000, '\n');
 			file << L"[-] Ошибка. PID не был прочитан\n";
             CloseHandle(hSnap);
             return;
@@ -256,6 +261,8 @@ void NetworkScanner()
 
         if (PID == 0) {
             std::wcout << ORANGE << L"[-] Ошибка ввода PID\n" << RESET;
+            std::wcin.clear();
+            std::wcin.ignore(1000000, '\n');
 			file << L"[-] Ошибка ввода PID\n";
             CloseHandle(hSnap);
             return;
@@ -268,6 +275,8 @@ void NetworkScanner()
         // Проверяю успешность чтения имени
         if (!(std::wcin >> ProcessName)) {
             std::wcout << RED << L"[-] Ошибка. Имя процесса не было прочитано\n" << RESET;
+            std::wcin.clear();
+            std::wcin.ignore(1000000, '\n');
 			file << L"[-] Ошибка. Имя процесса не было прочитано\n";
             CloseHandle(hSnap);
             return;
