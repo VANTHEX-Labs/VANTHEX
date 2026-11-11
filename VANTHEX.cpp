@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <limits>
 #include <windows.h>
 
@@ -59,7 +59,6 @@ int main()
     while (true)
     {
         ShowMenu();
-
         if (!(std::cin >> choice))
         {
             std::cout << RESET;
