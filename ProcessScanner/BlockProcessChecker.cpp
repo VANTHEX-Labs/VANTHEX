@@ -55,6 +55,7 @@ void ProcessScanner()
     std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 
     std::wcout << L"=-= Время запуска: " << std::put_time(std::localtime(&now), L"%Y-%m-%d %H:%M:%S") << L" =-=\n" << RESET;
+    std::wcout << L"\n\n";
 
     file << L"=-==-==-==-==-==-==-==\n";
     file << L"=-= PROCESS SCAN =-=-=\n";
