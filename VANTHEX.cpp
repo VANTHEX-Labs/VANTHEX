@@ -1,11 +1,10 @@
-#include <iostream>
+﻿#include <iostream>
 #include <limits>
 #include <windows.h>
 
 #include "ProcessScanner/ProcessScanner.h"
 #include "MemoryScanner/MemoryScanner.h"
 #include "NetworkScanner/NetworkScanner.h"
-
 
 #define RESET   "\033[0m"
 #define PURPLE  "\033[38;2;160;90;255m" // основной цвет

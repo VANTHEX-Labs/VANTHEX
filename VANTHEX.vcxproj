@@ -141,12 +141,16 @@
   <ItemGroup>
     <ClCompile Include="MemoryScanner\Memory_core.cpp" />
     <ClCompile Include="NetworkScanner\NetworkScanner.cpp" />
+    <ClCompile Include="NetworkScanner\TcpCore\Tcp_core.cpp" />
+    <ClCompile Include="NetworkScanner\UdpCore\Udp_core.cpp" />
     <ClCompile Include="ProcessScanner\BlockProcessChecker.cpp" />
     <ClCompile Include="VANTHEX.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MemoryScanner\MemoryScanner.h" />
     <ClInclude Include="NetworkScanner\NetworkScanner.h" />
+    <ClInclude Include="NetworkScanner\TcpCore\TcpScanner.h" />
+    <ClInclude Include="NetworkScanner\UdpCore\UdpScanner.h" />
     <ClInclude Include="ProcessScanner\ProcessScanner.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>

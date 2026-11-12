@@ -27,6 +27,12 @@
     <ClInclude Include="resource.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="NetworkScanner\TcpCore\TcpScanner.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkScanner\UdpCore\UdpScanner.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VANTHEX.cpp">
@@ -39,6 +45,12 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="ProcessScanner\BlockProcessChecker.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkScanner\TcpCore\Tcp_core.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkScanner\UdpCore\Udp_core.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
