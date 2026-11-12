@@ -209,6 +209,8 @@ void UdpScanner()
 
 	std::wcout << CYAN << L"Количество записей в таблице IPv4: " << countIpv4 << L"\n";
 	std::wcout << L"Количество записей в таблице IPv6: " << countIpv6 << L"\n" << RESET;
+	std::wcin.clear();
+	std::wcin.ignore(1000000, '\n');
 	std::wcout << L"Как вы хотите найти соединения у файла(1 - PID, 2 - NAME): " << ORANGE;
 
 	file << L"Количество записей в таблице IPv4: " << countIpv4 << L"\n";
