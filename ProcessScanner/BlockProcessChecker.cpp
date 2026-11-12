@@ -85,7 +85,7 @@ void ProcessScanner()
         std::wstring process_name = process.szExeFile;
 
         // Объединяю информацию в одну строку
-        std::wstring process_console = L"[+] PID: " + std::to_wstring(process_id) + L" | NAME: " + process_name + L"\n";
+        std::wstring process_console = L">> [+] PID: " + std::to_wstring(process_id) + L" | NAME: " + process_name + L"\n";
 
         std::wcout << process_console;
 
