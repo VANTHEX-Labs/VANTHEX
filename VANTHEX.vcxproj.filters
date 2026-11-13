@@ -33,6 +33,9 @@
     <ClInclude Include="NetworkScanner\UdpCore\UdpScanner.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="PathScanner\PathScanner.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VANTHEX.cpp">
@@ -51,6 +54,9 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="NetworkScanner\UdpCore\Udp_core.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="PathScanner\Path_core.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

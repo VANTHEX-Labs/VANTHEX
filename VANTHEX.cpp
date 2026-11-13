@@ -5,6 +5,7 @@
 #include "ProcessScanner/ProcessScanner.h"
 #include "MemoryScanner/MemoryScanner.h"
 #include "NetworkScanner/NetworkScanner.h"
+#include "PathScanner/PathScanner.h"
 
 #define RESET   "\033[0m"
 #define PURPLE  "\033[38;2;160;90;255m" // основной цвет
@@ -38,9 +39,9 @@ void ShowMenu()
     std::cout << GREY << "     " << std::string(102, '=') << "\n";
 
     std::cout << PURPLE << "     [1] " << WHITE << "Process Scanner\n";
-    std::cout << PURPLE << "     [2] " << WHITE << "Memory Scanner\n";
-    std::cout << PURPLE << "     [3] " << WHITE << "Network Scanner\n\n";
-
+    std::cout << PURPLE << "     [2] " << WHITE << "Memory Scanner (PID)" << "\n";
+    std::cout << PURPLE << "     [3] " << WHITE << "Network Scanner (PID or Name)" << "\n";
+    std::cout << PURPLE << "     [4] " << WHITE << "Path Scanner (PID)" << "\n\n";
     std::cout << GREY << "     " << std::string(102, '-') << "\n";
     std::cout << ORANGE << "     [0] " << WHITE << "Exit VANTHEX\n";
     std::cout << GREY << "     " << std::string(102, '-') << "\n\n";
@@ -51,13 +52,14 @@ void ShowMenu()
 
 int main()
 {
-    setlocale(LC_ALL, "Russian");
+    setlocale(LC_ALL, ".UTF8");
 
     int choice = -1;
 
     while (true)
     {
         ShowMenu();
+        std::cin.clear();
         if (!(std::cin >> choice))
         {
             std::cout << RESET;
@@ -84,7 +86,10 @@ int main()
             std::cout << RESET;
             NetworkScanner();
             break;
-
+        case 4:
+            std::cout << RESET;
+            PathChecker();
+            break;
         case 0:
             std::cout << RESET;
             std::cout << GREEN << "\n     [+] VANTHEX shutting down...\n" << RESET;
