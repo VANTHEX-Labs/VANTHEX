@@ -1,11 +1,10 @@
-# VANTHEX 
+# VANTHEX
 
 <img width="256" height="256" alt="VANTHEX" src="https://github.com/user-attachments/assets/fe7336a3-c96e-4dc8-8f4b-374449dd7cac" />
 
-
 **Windows System Analysis Console**
 
-VANTHEX is an experimental Windows system analysis tool written in C++. It provides modules for inspecting running processes, process memory, and network activity.
+VANTHEX is an experimental Windows system analysis tool written in C++. It provides modules for inspecting running processes, process memory, network activity, and executable file paths.
 
 > **VANTHEX is an early-stage project. Suspicious indicators do not necessarily mean that a process is malicious. Scan results require manual analysis.**
 
@@ -14,10 +13,11 @@ VANTHEX is an experimental Windows system analysis tool written in C++. It provi
 - **Process Scanner** — Inspect running processes and their basic information.
 - **Memory Scanner** — Inspect accessible process memory and extract printable strings.
 - **Network Scanner** — Inspect TCP connections and UDP endpoints for IPv4 and IPv6.
+- **Process Path Checker** — Retrieve the full executable path of a process using its PID.
 
 ## Project Status
 
-**Version:** `0.1.2-alpha`
+**Version:** `0.1.4-alpha`
 
 VANTHEX is under active development. Features, output formats, and internal implementation may change in future releases.
 
@@ -54,7 +54,7 @@ VANTHEX is a system inspection and analysis tool, not a replacement for professi
 
 **Консоль анализа системы Windows**
 
-VANTHEX — экспериментальная программа для анализа системы Windows, написанная на C++. Она предоставляет модули для изучения запущенных процессов, памяти процессов и сетевой активности.
+VANTHEX — экспериментальная программа для анализа системы Windows, написанная на C++. Она предоставляет модули для изучения запущенных процессов, памяти процессов, сетевой активности и путей к исполняемым файлам.
 
 > **VANTHEX находится на ранней стадии разработки. Подозрительные признаки не обязательно означают, что процесс является вредоносным. Результаты сканирования требуют ручного анализа.**
 
@@ -63,10 +63,11 @@ VANTHEX — экспериментальная программа для ана�
 - **Process Scanner** — просмотр запущенных процессов и основной информации о них.
 - **Memory Scanner** — анализ доступной памяти процессов и извлечение печатных строк.
 - **Network Scanner** — анализ TCP-соединений и UDP-конечных точек для IPv4 и IPv6.
+- **Process Path Checker** — получение полного пути к исполняемому файлу процесса по его PID.
 
 ## Статус проекта
 
-**Версия:** `0.1.2-alpha`
+**Версия:** `0.1.4-alpha`
 
 VANTHEX активно разрабатывается. Функции, форматы вывода и внутренняя реализация могут изменяться в будущих версиях.
 
