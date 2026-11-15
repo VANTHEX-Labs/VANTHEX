@@ -47,7 +47,7 @@ void ShowMenu()
     std::cout << GREY << "     " << std::string(102, '-') << "\n\n";
 
     std::cout << PURPLE << "     VANTHEX" << GREY << " :: " << WHITE << "Select module > " << ORANGE;
-    
+
 }
 
 int main()

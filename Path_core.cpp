@@ -40,10 +40,11 @@ void PathChecker()
     std::wcin.clear();
     std::wcin.ignore(100000, L'\n');
 
-    std::wcout << GREEN << L"\n\n=-= PATH SCANNER =-=\n";
+    std::wcout << GREEN << L"\n\n=-= PATH SCANNER =-=\n" << RESET;
     file << L"\n\n=-= PATH SCANNER =-=\n";
 
-    std::wcout << ORANGE << L">> 1 - Найти по PID, 2 - Вывод путей всех процессов: " << RESET;
+    std::wcout << L">> 1 - Найти по PID, 2 - Вывод путей всех процессов: " << ORANGE;
+    
 
     int choice = -1;
 
