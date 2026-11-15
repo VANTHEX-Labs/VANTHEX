@@ -33,8 +33,8 @@ void TcpScanner()
     HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 
     if (hSnap == INVALID_HANDLE_VALUE) {
-        std::wcerr << RED << L"[-] Ошибка создания снимка процессов: " << GetLastError() << std::endl << RESET;
-        file << L"[-] Ошибка создания снимка процессов: " << GetLastError() << L"\n";
+        std::wcerr << RED << L">> [-] Ошибка создания снимка процессов: " << GetLastError() << std::endl << RESET;
+        file << L">> [-] Ошибка создания снимка процессов: " << GetLastError() << L"\n";
         return;
     }
 
@@ -65,14 +65,14 @@ void TcpScanner()
     );
 
     if (result_tcpTable != ERROR_INSUFFICIENT_BUFFER) {
-        std::wcout << RED << L"[-] ERROR IPv4: " << result_tcpTable << L"\n" << RESET;
-        file << L"[-] ERROR IPv4: " << result_tcpTable << L"\n";
+        std::wcout << RED << L">> [-] ERROR IPv4: " << result_tcpTable << L"\n" << RESET;
+        file << L">> [-] ERROR IPv4: " << result_tcpTable << L"\n";
         CloseHandle(hSnap);
         return;
     }
     if (result_tcpTable_ipv6 != ERROR_INSUFFICIENT_BUFFER) {
-        std::wcout << RED << L"[-] ERROR IPv6: " << result_tcpTable_ipv6 << L"\n" << RESET;
-        file << L"[-] ERROR IPv6: " << result_tcpTable_ipv6 << L"\n";
+        std::wcout << RED << L">> [-] ERROR IPv6: " << result_tcpTable_ipv6 << L"\n" << RESET;
+        file << L">> [-] ERROR IPv6: " << result_tcpTable_ipv6 << L"\n";
         CloseHandle(hSnap);
         return;
     }
@@ -118,8 +118,8 @@ void TcpScanner()
                 0
             );
             if (result_tcpTable != ERROR_INSUFFICIENT_BUFFER) {
-                std::wcout << L"[-] ERROR IPv4: " << result_tcpTable << L"\n";
-                file << L"[-] ERROR  IPv4: " << result_tcpTable << L"\n";
+                std::wcout << L">> [-] ERROR IPv4: " << result_tcpTable << L"\n";
+                file << L">> [-] ERROR  IPv4: " << result_tcpTable << L"\n";
                 CloseHandle(hSnap);
                 return;
             }
@@ -150,8 +150,8 @@ void TcpScanner()
             );
 
             if (result_tcpTable_ipv6 != ERROR_INSUFFICIENT_BUFFER) {
-                std::wcout << L"[-] ERROR IPv6: " << result_tcpTable_ipv6 << L"\n";
-                file << L"[-] ERROR IPv6: " << result_tcpTable_ipv6 << L"\n";
+                std::wcout << L">> [-] ERROR IPv6: " << result_tcpTable_ipv6 << L"\n";
+                file << L">> [-] ERROR IPv6: " << result_tcpTable_ipv6 << L"\n";
                 CloseHandle(hSnap);
                 return;
             }
@@ -173,23 +173,23 @@ void TcpScanner()
         countforTable += 1;
         // Если буфер пересобирался больше 10 раз то выхожу из программы
         if (countforTable > 10) {
-            std::wcout << RED << L"[-] ERROR: Слишком много раз пересобирался буфер\n" << RESET;
-            file << L"[-] ERROR: Слишком много раз пересобирался буфер\n";
+            std::wcout << RED << L">> [-] ERROR: Слишком много раз пересобирался буфер\n" << RESET;
+            file << L">> [-] ERROR: Слишком много раз пересобирался буфер\n";
             CloseHandle(hSnap);
             return;
         }
     }
 
     if (result_tcpTable != NO_ERROR) {
-        std::wcout << RED << L"[-] ERROR IPv4: " << result_tcpTable << L"\n" << RESET;
-        file << L"[-] ERROR IPv4: " << result_tcpTable << L"\n";
+        std::wcout << RED << L">> [-] ERROR IPv4: " << result_tcpTable << L"\n" << RESET;
+        file << L">> [-] ERROR IPv4: " << result_tcpTable << L"\n";
         CloseHandle(hSnap);
         return;
     }
 
     if (result_tcpTable_ipv6 != NO_ERROR) {
-        std::wcout << RED << L"[-] ERROR IPv6: " << result_tcpTable_ipv6 << L"\n" << RESET;
-        file << L"[-] ERROR IPv6: " << result_tcpTable_ipv6 << L"\n";
+        std::wcout << RED << L">> [-] ERROR IPv6: " << result_tcpTable_ipv6 << L"\n" << RESET;
+        file << L">> [-] ERROR IPv6: " << result_tcpTable_ipv6 << L"\n";
         CloseHandle(hSnap);
         return;
     }
@@ -211,30 +211,30 @@ void TcpScanner()
     DWORD PID = 0; //250 строка используется для хранения PID процесса который пользователь введет если он выберет поиск по PID
     DWORD pid_name = 0;
 
-    std::wcout << CYAN << L"Количество записей в таблице IPv4: " << countIpv4 << L"\n";
-    std::wcout << L"Количество записей в таблице IPv6: " << countIpv6 << L"\n" << RESET;
+    std::wcout << CYAN << L">> Количество записей в таблице IPv4: " << countIpv4 << L"\n";
+    std::wcout << L">> Количество записей в таблице IPv6: " << countIpv6 << L"\n" << RESET;
     std::wcin.clear();
     std::wcin.ignore(1000000, '\n');
-    std::wcout << L"Как вы хотите найти соединения у файла(1 - PID, 2 - NAME): " << ORANGE;
+    std::wcout << L">> Как вы хотите найти соединения у файла(1 - PID, 2 - NAME): " << ORANGE;
 
-    file << L"Количество записей в таблице IPv4: " << countIpv4 << L"\n";
-    file << L"Количество записей в таблице IPv6: " << countIpv6 << L"\n";
+    file << L">> Количество записей в таблице IPv4: " << countIpv4 << L"\n";
+    file << L">> Количество записей в таблице IPv6: " << countIpv6 << L"\n";
 
     // Проверка ввода PID-NAME
     if (!(std::wcin >> pid_name)) {
-        std::wcout << RED << L"[-] Ошибка. PID-NAME не был записан\n" << RESET;
+        std::wcout << RED << L">> [-] Ошибка. PID-NAME не был записан\n" << RESET;
         std::wcin.clear();
         std::wcin.ignore(1000000, '\n');
-        file << L"[-] Ошибка. PID-NAME не был записан\n";
+        file << L">> [-] Ошибка. PID-NAME не был записан\n";
         CloseHandle(hSnap);
         return;
     }
 
     if (pid_name != 1 && pid_name != 2) {
-        std::wcout << ORANGE << L"[-] Ошибка ввода PID-NAME\n" << RESET;
+        std::wcout << ORANGE << L">> [-] Ошибка ввода PID-NAME\n" << RESET;
         std::wcin.clear();
         std::wcin.ignore(1000000, '\n');
-        file << L"[-] Ошибка ввода PID-NAME\n";
+        file << L">> [-] Ошибка ввода PID-NAME\n";
         CloseHandle(hSnap);
         return;
     }
@@ -248,37 +248,38 @@ void TcpScanner()
 
 
     if (pid_name == 1) {
-        std::wcout << L"Введите PID процесса: " << ORANGE;
+        std::wcout << L">> Введите PID процесса: " << ORANGE;
 
         // Проверка ввода PID
         if (!(std::wcin >> PID)) {
-            std::wcout << RED << L"[-] Ошибка. PID не был прочитан\n" << RESET;
+            std::wcout << RED << L">> [-] Ошибка. PID не был прочитан\n" << RESET;
             std::wcin.clear();
             std::wcin.ignore(1000000, '\n');
-            file << L"[-] Ошибка. PID не был прочитан\n";
+            file << L">> [-] Ошибка. PID не был прочитан\n";
             CloseHandle(hSnap);
             return;
         }
 
         if (PID == 0) {
-            std::wcout << ORANGE << L"[-] Ошибка ввода PID\n" << RESET;
+            std::wcout << ORANGE << L">> [-] Ошибка ввода PID\n" << RESET;
             std::wcin.clear();
             std::wcin.ignore(1000000, '\n');
-            file << L"[-] Ошибка ввода PID\n";
+            file << L">> [-] Ошибка ввода PID\n";
             CloseHandle(hSnap);
             return;
         }
 
     }
     else if (pid_name == 2) {
-        std::wcout << L"Введите имя процесса (например: notepad.exe): " << ORANGE;
+		std::wcout << RESET;
+        std::wcout << L">> Введите имя процесса (например: notepad.exe): " << ORANGE;
 
         // Проверяю успешность чтения имени
         if (!(std::wcin >> ProcessName)) {
-            std::wcout << RED << L"[-] Ошибка. Имя процесса не было прочитано\n" << RESET;
+            std::wcout << RED << L">> [-] Ошибка. Имя процесса не было прочитано\n" << RESET;
             std::wcin.clear();
             std::wcin.ignore(1000000, '\n');
-            file << L"[-] Ошибка. Имя процесса не было прочитано\n";
+            file << L">> [-] Ошибка. Имя процесса не было прочитано\n";
             CloseHandle(hSnap);
             return;
         }
@@ -291,8 +292,8 @@ void TcpScanner()
     if (pid_name == 2) {
         // Проверяю совпадения по Name Ipv4
         if (!Process32FirstW(hSnap, &process)) {
-            std::wcerr << RED << L"[-] Ошибка при получении первого процесса: " << GetLastError() << std::endl << RESET;
-            file << L"[-] Ошибка при получении первого процесса: " << GetLastError() << L"\n";
+            std::wcerr << RED << L">> [-] Ошибка при получении первого процесса: " << GetLastError() << std::endl << RESET;
+            file << L">> [-] Ошибка при получении первого процесса: " << GetLastError() << L"\n";
             CloseHandle(hSnap);
             return;
         }
@@ -304,8 +305,8 @@ void TcpScanner()
         } while (Process32NextW(hSnap, &process));
     }
     if (pid_name == 2 && processPIDs.empty()) {
-        std::wcout << ORANGE << L"[-] Нет процессов с именем: " << ProcessName << L"\n" << RESET;
-        file << L"[-] Нет процессов с именем: " << ProcessName << L"\n";
+        std::wcout << ORANGE << L">> [-] Нет процессов с именем: " << ProcessName << L"\n" << RESET;
+        file << L">> [-] Нет процессов с именем: " << ProcessName << L"\n";
         CloseHandle(hSnap);
         return;
 
@@ -343,92 +344,93 @@ void TcpScanner()
         std::wcout << CYAN;
 
         if (InetNtopW(AF_INET, &row_tcpIPv4.dwRemoteAddr, ip, _countof(ip)) != nullptr) {
-            std::wcout << L"\n" << L"[+] REMOTE IP: " << ip << L"\n";
+            std::wcout << L"\n" << L">> [+] REMOTE IP: " << ip << L"\n";
 
-            file << L"\n" << L"[+] REMOTE IP: " << ip << L"\n";
+            file << L"\n" << L">> [+] REMOTE IP: " << ip << L"\n";
         }
         // Локальный IP IPv4
         if (InetNtopW(AF_INET, &row_tcpIPv4.dwLocalAddr, ip, _countof(ip)) != nullptr) {
-            std::wcout << L"\n" << L"[+] LOCAL IP: " << ip << L"\n";
+            std::wcout << L"\n" << L">> [+] LOCAL IP: " << ip << L"\n";
 
-            file << L"\n" << L"[+] LOCAL IP: " << ip << L"\n";
+            file << L"\n" << L">> [+] LOCAL IP: " << ip << L"\n";
         }
         // Порты преобразовываю и выписываю IPv4
         uint16_t port_local_tcp = ntohs(row_tcpIPv4.dwLocalPort);
         uint16_t port_remote_tcp = ntohs(row_tcpIPv4.dwRemotePort);
 
-        std::wcout << L"\n" << L"[+] Local port: " << port_local_tcp << L"\n";
-        std::wcout << L"\n" << L"[+] Remote port: " << port_remote_tcp << L"\n\n";
+        std::wcout << L"\n" << L">> [+] Local port: " << port_local_tcp << L"\n";
+        std::wcout << L"\n" << L">> [+] Remote port: " << port_remote_tcp << L"\n\n";
 
-        file << L"\n" << L"[+] Local port: " << port_local_tcp << L"\n";
-        file << L"\n" << L"[+] Remote port: " << port_remote_tcp << L"\n\n";
+        file << L"\n" << L">> [+] Local port: " << port_local_tcp << L"\n";
+        file << L"\n" << L">> [+] Remote port: " << port_remote_tcp << L"\n\n";
 
+        std::wcout << GREEN;
         // Вывод Состояний соединения
         switch (state_tcpTableIPv4)
         {
         case MIB_TCP_STATE_CLOSED:
-            std::wcout << L"State: " << L"The TCP connection is closed (TCP-соединение закрыто)" << L"\n";
-            file << L"State: " << L"The TCP connection is closed (TCP-соединение закрыто)" << L"\n";
+            std::wcout << L">> State: " << L"The TCP connection is closed (TCP-соединение закрыто)" << L"\n";
+            file << L">> State: " << L"The TCP connection is closed (TCP-соединение закрыто)" << L"\n";
             break;
 
         case MIB_TCP_STATE_LISTEN:
-            std::wcout << L"State: " << L"Waiting for incoming connection requests (Ожидание входящих запросов на подключение)" << L"\n";
-            file << L"State: " << L"Waiting for incoming connection requests (Ожидание входящих запросов на подключение)" << L"\n";
+            std::wcout << L">> State: " << L"Waiting for incoming connection requests (Ожидание входящих запросов на подключение)" << L"\n";
+            file << L">> State: " << L"Waiting for incoming connection requests (Ожидание входящих запросов на подключение)" << L"\n";
             break;
 
         case MIB_TCP_STATE_SYN_SENT:
-            std::wcout << L"State: " << L"A connection request has been sent (Запрос на установление соединения отправлен)" << L"\n";
-            file << L"State: " << L"A connection request has been sent (Запрос на установление соединения отправлен)" << L"\n";
+            std::wcout << L">> State: " << L"A connection request has been sent (Запрос на установление соединения отправлен)" << L"\n";
+            file << L">> State: " << L"A connection request has been sent (Запрос на установление соединения отправлен)" << L"\n";
             break;
 
         case MIB_TCP_STATE_SYN_RCVD:
-            std::wcout << L"State: " << L"A connection request has been received (Получен запрос на установление соединения)" << L"\n";
-            file << L"State: " << L"A connection request has been received (Получен запрос на установление соединения)" << L"\n";
+            std::wcout << L">> State: " << L"A connection request has been received (Получен запрос на установление соединения)" << L"\n";
+            file << L">> State: " << L"A connection request has been received (Получен запрос на установление соединения)" << L"\n";
             break;
 
         case MIB_TCP_STATE_ESTAB:
-            std::wcout << L"State: " << L"The TCP connection is established (TCP-соединение установлено)" << L"\n";
-            file << L"State: " << L"The TCP connection is established (TCP-соединение установлено)" << L"\n";
+            std::wcout << L">> State: " << L"The TCP connection is established (TCP-соединение установлено)" << L"\n";
+            file << L">> State: " << L"The TCP connection is established (TCP-соединение установлено)" << L"\n";
             break;
 
         case MIB_TCP_STATE_FIN_WAIT1:
-            std::wcout << L"State: " << L"Waiting for acknowledgment of connection termination (Ожидание подтверждения завершения соединения)" << L"\n";
-            file << L"State: " << L"Waiting for acknowledgment of connection termination (Ожидание подтверждения завершения соединения)" << L"\n";
+            std::wcout << L">> State: " << L"Waiting for acknowledgment of connection termination (Ожидание подтверждения завершения соединения)" << L"\n";
+            file << L">> State: " << L"Waiting for acknowledgment of connection termination (Ожидание подтверждения завершения соединения)" << L"\n";
             break;
 
         case MIB_TCP_STATE_FIN_WAIT2:
-            std::wcout << L"State: " << L"Waiting for the remote endpoint to terminate the connection (Ожидание завершения соединения удалённой стороной)" << L"\n";
-            file << L"State: " << L"Waiting for the remote endpoint to terminate the connection (Ожидание завершения соединения удалённой стороной)" << L"\n";
+            std::wcout << L">> State: " << L"Waiting for the remote endpoint to terminate the connection (Ожидание завершения соединения удалённой стороной)" << L"\n";
+            file << L">> State: " << L"Waiting for the remote endpoint to terminate the connection (Ожидание завершения соединения удалённой стороной)" << L"\n";
             break;
 
         case MIB_TCP_STATE_CLOSE_WAIT:
-            std::wcout << L"State: " << L"Waiting for the local application to close the connection (Ожидание закрытия соединения локальным приложением)" << L"\n";
-            file << L"State: " << L"Waiting for the local application to close the connection (Ожидание закрытия соединения локальным приложением)" << L"\n";
+            std::wcout << L">> State: " << L"Waiting for the local application to close the connection (Ожидание закрытия соединения локальным приложением)" << L"\n";
+            file << L">> State: " << L"Waiting for the local application to close the connection (Ожидание закрытия соединения локальным приложением)" << L"\n";
             break;
 
         case MIB_TCP_STATE_CLOSING:
-            std::wcout << L"State: " << L"Waiting for acknowledgment of connection termination (Ожидание подтверждения завершения соединения)" << L"\n";
-            file << L"State: " << L"Waiting for acknowledgment of connection termination (Ожидание подтверждения завершения соединения)" << L"\n";
+            std::wcout << L">> State: " << L"Waiting for acknowledgment of connection termination (Ожидание подтверждения завершения соединения)" << L"\n";
+            file << L">> State: " << L"Waiting for acknowledgment of connection termination (Ожидание подтверждения завершения соединения)" << L"\n";
             break;
 
         case MIB_TCP_STATE_LAST_ACK:
-            std::wcout << L"State: " << L"Waiting for acknowledgment of the final termination request (Ожидание подтверждения последнего запроса на закрытие)" << L"\n";
-            file << L"State: " << L"Waiting for acknowledgment of the final termination request (Ожидание подтверждения последнего запроса на закрытие)" << L"\n";
+            std::wcout << L">> State: " << L"Waiting for acknowledgment of the final termination request (Ожидание подтверждения последнего запроса на закрытие)" << L"\n";
+            file << L">> State: " << L"Waiting for acknowledgment of the final termination request (Ожидание подтверждения последнего запроса на закрытие)" << L"\n";
             break;
 
         case MIB_TCP_STATE_TIME_WAIT:
-            std::wcout << L"State: " << L"Waiting for delayed packets to expire (Ожидание завершения периода ожидания отложенных пакетов)" << L"\n";
-            file << L"State: " << L"Waiting for delayed packets to expire (Ожидание завершения периода ожидания отложенных пакетов)" << L"\n";
+            std::wcout << L">> State: " << L"Waiting for delayed packets to expire (Ожидание завершения периода ожидания отложенных пакетов)" << L"\n";
+            file << L">> State: " << L"Waiting for delayed packets to expire (Ожидание завершения периода ожидания отложенных пакетов)" << L"\n";
             break;
 
         case MIB_TCP_STATE_DELETE_TCB:
-            std::wcout << L"State: " << L"The TCP connection control block is being deleted (Удаление управляющего блока TCP-соединения)" << L"\n";
-            file << L"State: " << L"The TCP connection control block is being deleted (Удаление управляющего блока TCP-соединения)" << L"\n";
+            std::wcout << L">> State: " << L"The TCP connection control block is being deleted (Удаление управляющего блока TCP-соединения)" << L"\n";
+            file << L">> State: " << L"The TCP connection control block is being deleted (Удаление управляющего блока TCP-соединения)" << L"\n";
             break;
 
         default:
-            std::wcout << L"State: " << L"UNKNOWN (Неизвестное состояние)" << L"\n";
-            file << L"State: " << L"UNKNOWN (Неизвестное состояние)" << L"\n";
+            std::wcout << L">> State: " << L"UNKNOWN (Неизвестное состояние)" << L"\n";
+            file << L">> State: " << L"UNKNOWN (Неизвестное состояние)" << L"\n";
             break;
         }
         std::wcout << RESET;
@@ -437,24 +439,24 @@ void TcpScanner()
     }
 
     if (countPIDIPv4 > 0) {
-        std::wcout << GREEN << L"[+] Закончил вывод IPv4" << L"\n" << RESET;
+        std::wcout << GREEN << L">> [+] Закончил вывод IPv4" << L"\n" << RESET;
         std::wcout << std::wstring(10, L'=') << std::endl;
 
-        file << L"[+] Закончил вывод IPv4" << L"\n";
+        file << L">> [+] Закончил вывод IPv4" << L"\n";
         file << std::wstring(10, L'=') << std::endl;
     }
     if (countPIDIPv4 == 0) {
-        std::wcout << ORANGE << L"[-] Нет в таблице IPv4 с выбранным PID-NAME" << L"\n" << RESET;
+        std::wcout << ORANGE << L">> [-] Нет в таблице IPv4 с выбранным PID-NAME" << L"\n" << RESET;
         std::wcout << std::wstring(10, L'=') << std::endl;
 
-        file << L"[-] Нет в таблице IPv4 с выбранным PID-NAME" << L"\n";
+        file << L">> [-] Нет в таблице IPv4 с выбранным PID-NAME" << L"\n";
         file << std::wstring(10, L'=') << std::endl;
     }
 
-    std::wcout << GREEN << L"Переход к IPv6" << L"\n" << RESET;
+    std::wcout << GREEN << L">> Переход к IPv6" << L"\n" << RESET;
     std::wcout << std::wstring(10, L'=') << std::endl;
 
-    file << L"Переход к IPv6" << L"\n";
+    file << L">> Переход к IPv6" << L"\n";
     file << std::wstring(10, L'=') << std::endl;
 
     for (DWORD i = 0; i < tableIpv6->dwNumEntries; i++)
@@ -491,102 +493,102 @@ void TcpScanner()
         std::wcout << CYAN;
 
         if (InetNtopW(AF_INET6, row_tcpIPv6.ucRemoteAddr, ip6, _countof(ip6)) != nullptr) {
-            std::wcout << L"\n" << L"[+] REMOTE IP: " << ip6 << L"\n";
+            std::wcout << L"\n" << L">> [+] REMOTE IP: " << ip6 << L"\n";
 
-            file << L"\n" << L"[+] REMOTE IP: " << ip6 << L"\n";
+            file << L"\n" << L">> [+] REMOTE IP: " << ip6 << L"\n";
         }
         // Локальный IP IPv6
         if (InetNtopW(AF_INET6, row_tcpIPv6.ucLocalAddr, ip6, _countof(ip6)) != nullptr) {
-            std::wcout << L"\n" << L"[+] LOCAL IP: " << ip6 << L"\n";
+            std::wcout << L"\n" << L">> [+] LOCAL IP: " << ip6 << L"\n";
 
-            file << L"\n" << L"[+] LOCAL IP: " << ip6 << L"\n";
+            file << L"\n" << L">> [+] LOCAL IP: " << ip6 << L"\n";
         }
         // Порты преобразовываю и выписываю IPv6
         uint16_t port_local_tcp = ntohs(row_tcpIPv6.dwLocalPort);
         uint16_t port_remote_tcp = ntohs(row_tcpIPv6.dwRemotePort);
 
-        std::wcout << L"\n" << L"[+] Local port: " << port_local_tcp << L"\n";
-        std::wcout << L"\n" << L"[+] Remote port: " << port_remote_tcp << L"\n";
+        std::wcout << L"\n" << L">> [+] Local port: " << port_local_tcp << L"\n";
+        std::wcout << L"\n" << L">> [+] Remote port: " << port_remote_tcp << L"\n";
 
-        file << L"\n" << L"[+] Local port: " << port_local_tcp << L"\n";
-        file << L"\n" << L"[+] Remote port: " << port_remote_tcp << L"\n";
+        file << L"\n" << L">> [+] Local port: " << port_local_tcp << L"\n";
+        file << L"\n" << L">> [+] Remote port: " << port_remote_tcp << L"\n";
 
         // Вывод ScopeID
         uint32_t LocalScopeID = row_tcpIPv6.dwLocalScopeId;
         uint32_t RemoteScopeID = row_tcpIPv6.dwRemoteScopeId;
 
-        std::wcout << L"\n" << L"[+] Local Scope ID: " << LocalScopeID << L"\n";
-        std::wcout << L"\n" << L"[+] Remote Scope ID: " << RemoteScopeID << L"\n\n";
+        std::wcout << L"\n" << L">> [+] Local Scope ID: " << LocalScopeID << L"\n";
+        std::wcout << L"\n" << L">> [+] Remote Scope ID: " << RemoteScopeID << L"\n\n";
 
-        file << L"\n" << L"[+] Local Scope ID: " << LocalScopeID << L"\n";
-        file << L"\n" << L"[+] Remote Scope ID: " << RemoteScopeID << L"\n\n";
+        file << L"\n" << L">> [+] Local Scope ID: " << LocalScopeID << L"\n";
+        file << L"\n" << L">> [+] Remote Scope ID: " << RemoteScopeID << L"\n\n";
 
         // Вывод Состояний соединения
         switch (state_tcpTableIPv6)
         {
         case MIB_TCP_STATE_CLOSED:
-            std::wcout << L"State: " << L"The TCP connection is closed (TCP-соединение закрыто)" << L"\n";
-            file << L"State: " << L"The TCP connection is closed (TCP-соединение закрыто)" << L"\n";
+            std::wcout << L">> State: " << L"The TCP connection is closed (TCP-соединение закрыто)" << L"\n";
+            file << L">> State: " << L"The TCP connection is closed (TCP-соединение закрыто)" << L"\n";
             break;
 
         case MIB_TCP_STATE_LISTEN:
-            std::wcout << L"State: " << L"Waiting for incoming connection requests (Ожидание входящих запросов на подключение)" << L"\n";
-            file << L"State: " << L"Waiting for incoming connection requests (Ожидание входящих запросов на подключение)" << L"\n";
+            std::wcout << L">> State: " << L"Waiting for incoming connection requests (Ожидание входящих запросов на подключение)" << L"\n";
+            file << L">> State: " << L"Waiting for incoming connection requests (Ожидание входящих запросов на подключение)" << L"\n";
             break;
 
         case MIB_TCP_STATE_SYN_SENT:
-            std::wcout << L"State: " << L"A connection request has been sent (Запрос на установление соединения отправлен)" << L"\n";
-            file << L"State: " << L"A connection request has been sent (Запрос на установление соединения отправлен)" << L"\n";
+            std::wcout << L">> State: " << L"A connection request has been sent (Запрос на установление соединения отправлен)" << L"\n";
+            file << L">> State: " << L"A connection request has been sent (Запрос на установление соединения отправлен)" << L"\n";
             break;
 
         case MIB_TCP_STATE_SYN_RCVD:
-            std::wcout << L"State: " << L"A connection request has been received (Получен запрос на установление соединения)" << L"\n";
-            file << L"State: " << L"A connection request has been received (Получен запрос на установление соединения)" << L"\n";
+            std::wcout << L">> State: " << L"A connection request has been received (Получен запрос на установление соединения)" << L"\n";
+            file << L">> State: " << L"A connection request has been received (Получен запрос на установление соединения)" << L"\n";
             break;
 
         case MIB_TCP_STATE_ESTAB:
-            std::wcout << L"State: " << L"The TCP connection is established (TCP-соединение установлено)" << L"\n";
-            file << L"State: " << L"The TCP connection is established (TCP-соединение установлено)" << L"\n";
+            std::wcout << L">> State: " << L"The TCP connection is established (TCP-соединение установлено)" << L"\n";
+            file << L">> State: " << L"The TCP connection is established (TCP-соединение установлено)" << L"\n";
             break;
 
         case MIB_TCP_STATE_FIN_WAIT1:
-            std::wcout << L"State: " << L"Waiting for acknowledgment of connection termination (Ожидание подтверждения завершения соединения)" << L"\n";
-            file << L"State: " << L"Waiting for acknowledgment of connection termination (Ожидание подтверждения завершения соединения)" << L"\n";
+            std::wcout << L">> State: " << L"Waiting for acknowledgment of connection termination (Ожидание подтверждения завершения соединения)" << L"\n";
+            file << L">> State: " << L"Waiting for acknowledgment of connection termination (Ожидание подтверждения завершения соединения)" << L"\n";
             break;
 
         case MIB_TCP_STATE_FIN_WAIT2:
-            std::wcout << L"State: " << L"Waiting for the remote endpoint to terminate the connection (Ожидание завершения соединения удалённой стороной)" << L"\n";
-            file << L"State: " << L"Waiting for the remote endpoint to terminate the connection (Ожидание завершения соединения удалённой стороной)" << L"\n";
+            std::wcout << L">> State: " << L"Waiting for the remote endpoint to terminate the connection (Ожидание завершения соединения удалённой стороной)" << L"\n";
+            file << L">> State: " << L"Waiting for the remote endpoint to terminate the connection (Ожидание завершения соединения удалённой стороной)" << L"\n";
             break;
 
         case MIB_TCP_STATE_CLOSE_WAIT:
-            std::wcout << L"State: " << L"Waiting for the local application to close the connection (Ожидание закрытия соединения локальным приложением)" << L"\n";
-            file << L"State: " << L"Waiting for the local application to close the connection (Ожидание закрытия соединения локальным приложением)" << L"\n";
+            std::wcout << L">> State: " << L"Waiting for the local application to close the connection (Ожидание закрытия соединения локальным приложением)" << L"\n";
+            file << L">> State: " << L"Waiting for the local application to close the connection (Ожидание закрытия соединения локальным приложением)" << L"\n";
             break;
 
         case MIB_TCP_STATE_CLOSING:
-            std::wcout << L"State: " << L"Waiting for acknowledgment of connection termination (Ожидание подтверждения завершения соединения)" << L"\n";
-            file << L"State: " << L"Waiting for acknowledgment of connection termination (Ожидание подтверждения завершения соединения)" << L"\n";
+            std::wcout << L">> State: " << L"Waiting for acknowledgment of connection termination (Ожидание подтверждения завершения соединения)" << L"\n";
+            file << L">> State: " << L"Waiting for acknowledgment of connection termination (Ожидание подтверждения завершения соединения)" << L"\n";
             break;
 
         case MIB_TCP_STATE_LAST_ACK:
-            std::wcout << L"State: " << L"Waiting for acknowledgment of the final termination request (Ожидание подтверждения последнего запроса на закрытие)" << L"\n";
-            file << L"State: " << L"Waiting for acknowledgment of the final termination request (Ожидание подтверждения последнего запроса на закрытие)" << L"\n";
+            std::wcout << L">> State: " << L"Waiting for acknowledgment of the final termination request (Ожидание подтверждения последнего запроса на закрытие)" << L"\n";
+            file << L">> State: " << L"Waiting for acknowledgment of the final termination request (Ожидание подтверждения последнего запроса на закрытие)" << L"\n";
             break;
 
         case MIB_TCP_STATE_TIME_WAIT:
-            std::wcout << L"State: " << L"Waiting for delayed packets to expire (Ожидание завершения периода ожидания отложенных пакетов)" << L"\n";
-            file << L"State: " << L"Waiting for delayed packets to expire (Ожидание завершения периода ожидания отложенных пакетов)" << L"\n";
+            std::wcout << L">> State: " << L"Waiting for delayed packets to expire (Ожидание завершения периода ожидания отложенных пакетов)" << L"\n";
+            file << L">> State: " << L"Waiting for delayed packets to expire (Ожидание завершения периода ожидания отложенных пакетов)" << L"\n";
             break;
 
         case MIB_TCP_STATE_DELETE_TCB:
-            std::wcout << L"State: " << L"The TCP connection control block is being deleted (Удаление управляющего блока TCP-соединения)" << L"\n";
-            file << L"State: " << L"The TCP connection control block is being deleted (Удаление управляющего блока TCP-соединения)" << L"\n";
+            std::wcout << L">> State: " << L"The TCP connection control block is being deleted (Удаление управляющего блока TCP-соединения)" << L"\n";
+            file << L">> State: " << L"The TCP connection control block is being deleted (Удаление управляющего блока TCP-соединения)" << L"\n";
             break;
 
         default:
-            std::wcout << L"State: " << L"UNKNOWN (Неизвестное состояние)" << L"\n";
-            file << L"State: " << L"UNKNOWN (Неизвестное состояние)" << L"\n";
+            std::wcout << L">> State: " << L"UNKNOWN (Неизвестное состояние)" << L"\n";
+            file << L">> State: " << L"UNKNOWN (Неизвестное состояние)" << L"\n";
             break;
         }
         std::wcout << RESET;
@@ -595,17 +597,17 @@ void TcpScanner()
     }
 
     if (countPIDIPv6 > 0) {
-        std::wcout << GREEN << L"[+] Закончил вывод IPv6" << L"\n" << RESET;
+        std::wcout << GREEN << L">> [+] Закончил вывод IPv6" << L"\n" << RESET;
         std::wcout << std::wstring(10, L'=') << std::endl;
 
-        file << L"" << L"[+] Закончил вывод IPv6" << L"\n";
+        file << L"" << L">> [+] Закончил вывод IPv6" << L"\n";
         file << std::wstring(10, L'=') << std::endl;
     }
     if (countPIDIPv6 == 0) {
-        std::wcout << ORANGE << L"[-] Нет в таблице IPv6 с выбранным PID-NAME" << L"\n" << RESET;
+        std::wcout << ORANGE << L">> [-] Нет в таблице IPv6 с выбранным PID-NAME" << L"\n" << RESET;
         std::wcout << std::wstring(10, L'=') << std::endl;
 
-        file << L"[-] Нет в таблице IPv6 с выбранным PID-NAME" << L"\n";
+        file << L">> [-] Нет в таблице IPv6 с выбранным PID-NAME" << L"\n";
         file << std::wstring(10, L'=') << std::endl;
     }
 
