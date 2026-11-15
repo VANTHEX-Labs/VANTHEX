@@ -19,7 +19,7 @@ void PathChecker()
     file.open("PathProcess_list.txt");
 
     if (!file.is_open()) {
-        std::wcerr << RED << L"[-] File didn't open.\n" << RESET;
+        std::wcerr << RED << L">> [-] File didn't open.\n" << RESET;
         return;
     }
 
@@ -29,8 +29,8 @@ void PathChecker()
 
     if (hSnap == INVALID_HANDLE_VALUE) {
         DWORD error = GetLastError();
-        std::wcerr << RED << L"[-] Ошибка создания снимка процессов: " << error << L"\n" << RESET;
-        file << L"[-] Ошибка создания снимка процессов: " << error << L"\n";
+        std::wcerr << RED << L">> [-] Ошибка создания снимка процессов: " << error << L"\n" << RESET;
+        file << L">> [-] Ошибка создания снимка процессов: " << error << L"\n";
         return;
     }
 
@@ -49,8 +49,8 @@ void PathChecker()
     int choice = -1;
 
     if (!(std::wcin >> choice)) {
-        std::wcerr << RED << L"[-] Ошибка. Выбор не был прочитан\n" << RESET;
-        file << L"[-] Ошибка. Выбор не был прочитан\n";
+        std::wcerr << RED << L">> [-] Ошибка. Выбор не был прочитан\n" << RESET;
+        file << L">> [-] Ошибка. Выбор не был прочитан\n";
         std::wcin.clear();
         std::wcin.ignore(100000, L'\n');
         CloseHandle(hSnap);
@@ -65,8 +65,8 @@ void PathChecker()
         std::wcout << ORANGE << L">> Введите PID: " << RESET;
 
         if (!(std::wcin >> pid) || pid == 0) {
-            std::wcerr << RED << L"[-] Некорректный PID\n" << RESET;
-            file << L"[-] Некорректный PID\n";
+            std::wcerr << RED << L">> [-] Некорректный PID\n" << RESET;
+            file << L">> [-] Некорректный PID\n";
             std::wcin.clear();
             std::wcin.ignore(100000, L'\n');
             CloseHandle(hSnap);
@@ -77,8 +77,15 @@ void PathChecker()
 
         if (hProcess == NULL) {
             DWORD error = GetLastError();
-            std::wcerr << RED << L"[-] Не удалось открыть процесс. Ошибка: " << error << L"\n" << RESET;
-            file << L"[-] Не удалось открыть процесс. Ошибка: " << error << L"\n";
+            if (error == ERROR_ACCESS_DENIED)
+            {
+                std::wcerr << RED << L">> [-] Не удалось открыть процесс. Ошибка: " << L"Отказано в доступе(ERROR_ACCESS_DENIED)" << L"\n";
+                file << L">> [-] Не удалось открыть процесс. Ошибка: " << L"Отказано в доступе(ERROR_ACCESS_DENIED)" << L"\n";
+            }
+            else {
+                std::wcerr << RED << L">> [-] Не удалось открыть процесс. Ошибка: " << error << L"\n" << RESET;
+                file << L">> [-] Не удалось открыть процесс. Ошибка: " << error << L"\n";
+            }
             CloseHandle(hSnap);
             return;
         }
@@ -95,8 +102,8 @@ void PathChecker()
         }
         else {
             DWORD error = GetLastError();
-            std::wcerr << RED << L"[-] Ошибка получения пути процесса: " << error << std::endl << RESET;
-            file << L"[-] Ошибка получения пути процесса: " << error << std::endl;
+            std::wcerr << RED << L">> [-] Ошибка получения пути процесса: " << error << std::endl << RESET;
+            file << L">> [-] Ошибка получения пути процесса: " << error << std::endl;
         }
 
         CloseHandle(hProcess);
@@ -105,8 +112,8 @@ void PathChecker()
     else if (choice == 2) {
         if (!Process32FirstW(hSnap, &process)) {
             DWORD error = GetLastError();
-            std::wcerr << RED << L"[-] Ошибка получения первого процесса: " << error << std::endl << RESET;
-            file << L"[-] Ошибка получения первого процесса: " << error << std::endl;
+            std::wcerr << RED << L">> [-] Ошибка получения первого процесса: " << error << std::endl << RESET;
+            file << L">> [-] Ошибка получения первого процесса: " << error << std::endl;
             CloseHandle(hSnap);
             return;
         }
@@ -127,9 +134,9 @@ void PathChecker()
                 }
                 else {
                     DWORD error = GetLastError();
-                    std::wcerr << RED << L"[-] Ошибка получения пути процесса. PID: " << process.th32ProcessID << " | NAME: " << process.szExeFile << L" | Ошибка: " << error << std::endl << RESET;
+                    std::wcerr << RED << L">> [-] Ошибка получения пути процесса. PID: " << process.th32ProcessID << L" | NAME: " << process.szExeFile << L" | Ошибка: " << error << std::endl << RESET;
                     std::wcout << RESET << std::wstring(10, L'=') << std::endl;
-                    file << L"[-] Ошибка получения пути процесса. PID: " << process.th32ProcessID << " | NAME: " << process.szExeFile << L" | Ошибка: " << error << std::endl;
+                    file << L">> [-] Ошибка получения пути процесса. PID: " << process.th32ProcessID << L" | NAME: " << process.szExeFile << L" | Ошибка: " << error << std::endl;
 					file << L"" << std::wstring(10, L'=') << std::endl;
                 }
 
@@ -137,18 +144,27 @@ void PathChecker()
             }
             else {
                 DWORD error = GetLastError();
-                std::wcerr << RED << L"[-] Не удалось открыть процесс. PID: " << process.th32ProcessID << " | NAME: " << process.szExeFile << L" | Ошибка: " << error << std::endl << RESET;
-                std::wcout << RESET << std::wstring(10, L'=') << std::endl;
-                file << L"[-] Не удалось открыть процесс. PID: " << process.th32ProcessID << " | NAME: " << process.szExeFile << L" | Ошибка: " << error << std::endl;
-				file << L"" << std::wstring(10, L'=') << std::endl;
+                if (error == ERROR_ACCESS_DENIED)
+                {
+                    std::wcerr << RED << L">> [-] Не удалось открыть процесс. Ошибка: " << L"Отказано в доступе(ERROR_ACCESS_DENIED)" << L"\n";
+                    std::wcout << RESET << std::wstring(10, L'=') << std::endl;
+                    file << L">> [-] Не удалось открыть процесс. Ошибка: " << L"Отказано в доступе(ERROR_ACCESS_DENIED)" << L"\n";
+                    file << L"" << std::wstring(10, L'=') << std::endl;
+                }
+                else {
+                    std::wcerr << RED << L">> [-] Не удалось открыть процесс. PID: " << process.th32ProcessID << " | NAME: " << process.szExeFile << L" | Ошибка: " << error << std::endl << RESET;
+                    std::wcout << RESET << std::wstring(10, L'=') << std::endl;
+                    file << L">> [-] Не удалось открыть процесс. PID: " << process.th32ProcessID << " | NAME: " << process.szExeFile << L" | Ошибка: " << error << std::endl;
+                    file << L"" << std::wstring(10, L'=') << std::endl;
+                }
             }
 
         } while (Process32NextW(hSnap, &process));
     }
     else {
-        std::wcerr << RED << L"[-] Неизвестный пункт меню\n" << RESET;
+        std::wcerr << RED << L">> [-] Неизвестный пункт меню\n" << RESET;
         std::wcout << RESET << std::wstring(10, L'=') << std::endl;
-        file << L"[-] Неизвестный пункт меню\n";
+        file << L">> [-] Неизвестный пункт меню\n";
 		file << L"" << std::wstring(10, L'=') << std::endl;
     }
     file.close();
