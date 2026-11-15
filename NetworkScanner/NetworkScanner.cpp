@@ -44,15 +44,19 @@ void NetworkScanner()
 		return;
     }
     switch (choice) {
+
 	case 1:
 		TcpScanner();
 		break;
+
 	case 2:
 		UdpScanner();
 		break;
+
 	case 0:
 		std::cout << RESET;
 		return;
+
 	default:
 		std::cout << RED << "[-] Ошибка. Неверный выбор\n" << RESET;
 		std::cin.clear();
