@@ -4,22 +4,25 @@
 
 **Windows System Analysis Console**
 
-VANTHEX is an experimental Windows system analysis tool written in C++. It provides modules for inspecting running processes, process memory, network activity, and executable file paths.
+VANTHEX is an experimental Windows system analysis tool written in C++. It provides a collection of modules for inspecting running processes, accessible process memory, network activity, executable file paths, and file identification through SHA-256 hashing.
 
-> **VANTHEX is an early-stage project. Suspicious indicators do not necessarily mean that a process is malicious. Scan results require manual analysis.**
+The project focuses on providing system information and useful analysis capabilities while leaving the interpretation of results to the user.
+
+> **VANTHEX is an early-stage project. Suspicious indicators do not necessarily mean that a process or file is malicious. All scan results require manual analysis.**
 
 ## Features
 
-- **Process Scanner** — Inspect running processes and their basic information.
+- **Process Scanner** — Inspect running processes and retrieve basic process information.
 - **Memory Scanner** — Inspect accessible process memory and extract printable strings.
 - **Network Scanner** — Inspect TCP connections and UDP endpoints for IPv4 and IPv6.
 - **Process Path Checker** — Retrieve the full executable path of a process by PID or enumerate executable paths of all running processes.
+- **SHA-256 File Checker** — Calculate the SHA-256 hash of a user-specified file for identification, integrity verification, and further analysis.
 
 ## Project Status
 
-**Version:** `0.1.5-alpha`
+**Version:** `0.1.6-alpha`
 
-VANTHEX is under active development. Features, output formats, and internal implementation may change in future releases.
+VANTHEX is actively developed. The project is currently in its alpha stage, and features, output formats, and internal implementation may change in future releases.
 
 ## Requirements
 
@@ -41,10 +44,11 @@ Some process information and memory regions may require elevated permissions to 
 
 ## Important Disclaimer
 
-VANTHEX is a system inspection and analysis tool, not a replacement for professional antivirus software.
+VANTHEX is a system inspection and analysis tool. It is not a replacement for professional antivirus software or endpoint protection solutions.
 
 - Scan results are not definitive malware verdicts.
 - The tool does not guarantee detection of malicious software.
+- A SHA-256 hash identifies file content but does not determine whether a file is malicious.
 - Users are responsible for interpreting scan results.
 - A suspicious indicator alone is not proof of malicious activity.
 
@@ -54,22 +58,25 @@ VANTHEX is a system inspection and analysis tool, not a replacement for professi
 
 **Консоль анализа системы Windows**
 
-VANTHEX — экспериментальная программа для анализа системы Windows, написанная на C++. Она предоставляет модули для изучения запущенных процессов, памяти процессов, сетевой активности и путей к исполняемым файлам.
+VANTHEX — экспериментальный инструмент для анализа системы Windows, написанный на C++. Он предоставляет набор модулей для изучения запущенных процессов, доступной памяти процессов, сетевой активности, путей к исполняемым файлам и идентификации файлов с помощью SHA-256.
 
-> **VANTHEX находится на ранней стадии разработки. Подозрительные признаки не обязательно означают, что процесс является вредоносным. Результаты сканирования требуют ручного анализа.**
+Проект ориентирован на получение системной информации и предоставление инструментов для анализа, оставляя интерпретацию результатов за пользователем.
+
+> **VANTHEX находится на ранней стадии разработки. Подозрительные признаки не обязательно означают, что процесс или файл является вредоносным. Все результаты сканирования требуют ручного анализа.**
 
 ## Возможности
 
-- **Process Scanner** — просмотр запущенных процессов и основной информации о них.
+- **Process Scanner** — просмотр запущенных процессов и получение основной информации о них.
 - **Memory Scanner** — анализ доступной памяти процессов и извлечение печатных строк.
 - **Network Scanner** — анализ TCP-соединений и UDP-конечных точек для IPv4 и IPv6.
-- **Process Path Checker** — Получение полного пути к исполняемому файлу процесса по PID или перечисление путей ко всем запущенным процессам.
+- **Process Path Checker** — получение полного пути к исполняемому файлу процесса по PID или перечисление путей ко всем запущенным процессам.
+- **SHA-256 File Checker** — вычисление SHA-256 хеша указанного пользователем файла для его идентификации, проверки целостности и дальнейшего анализа.
 
 ## Статус проекта
 
-**Версия:** `0.1.5-alpha`
+**Версия:** `0.1.6-alpha`
 
-VANTHEX активно разрабатывается. Функции, форматы вывода и внутренняя реализация могут изменяться в будущих версиях.
+VANTHEX активно разрабатывается. Проект находится на стадии alpha, поэтому функциональность, форматы вывода и внутренняя реализация могут изменяться в будущих версиях.
 
 ## Требования
 
@@ -91,9 +98,10 @@ VANTHEX активно разрабатывается. Функции, форм�
 
 ## Важное предупреждение
 
-VANTHEX — инструмент системного анализа, а не замена профессиональному антивирусному решению.
+VANTHEX — инструмент системного анализа, а не замена профессиональному антивирусному программному обеспечению или средствам защиты конечных устройств.
 
 - Результаты сканирования не являются окончательным вердиктом о наличии вредоносного ПО.
 - Программа не гарантирует обнаружение вредоносного программного обеспечения.
+- SHA-256 хеш идентифицирует содержимое файла, но сам по себе не определяет, является ли файл вредоносным.
 - Пользователь самостоятельно интерпретирует результаты анализа.
 - Подозрительный признак сам по себе не является доказательством вредоносной активности.
