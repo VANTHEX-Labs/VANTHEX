@@ -66,7 +66,7 @@ int main()
         {
             std::cout << RESET;
             std::cin.clear();
-            std::cout << RED << "\n     [-] Invalid input!\n" << RESET;
+            std::cout << RED << "\n     >> [-] Invalid input!\n" << RESET;
             std::cin.ignore(10000, '\n');
             system("pause");
             continue;
@@ -101,12 +101,12 @@ int main()
 
         case 0:
             std::cout << RESET;
-            std::cout << GREEN << "\n     [+] VANTHEX shutting down...\n" << RESET;
+            std::cout << GREEN << "\n     >> [+] VANTHEX shutting down...\n" << RESET;
             return 0;
 
         default:
             std::cout << RESET;
-            std::cout << RED << "\n     [-] Unknown option!\n" << RESET;
+            std::cout << RED << "\n     >> [-] Unknown option!\n" << RESET;
             system("pause");
             break;
         }

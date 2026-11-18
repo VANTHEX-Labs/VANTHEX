@@ -13,7 +13,7 @@
 
 void MemoryScanner()
 {
-	setlocale(LC_ALL, "Russian");
+	setlocale(LC_ALL, ".UTF8");
 
 	DWORD PID_Mem = 0;
 	std::wcout << L"[+] Введите PID процесса: " << ORANGE;
@@ -73,12 +73,12 @@ void MemoryScanner()
 
 
 	while (result != 0) {
-		std::wcout << L"\n[+] Чтение номер: "<< ORANGE << count << L"\n" << RESET;
-		file << L"\n[+] Чтение номер: " << count << L"\n";
+		std::wcout << L"\n>> [+] Чтение номер: "<< ORANGE << count << L"\n" << RESET;
+		file << L"\n>> [+] Чтение номер: " << count << L"\n";
 
 		if (info.Protect == PAGE_NOACCESS || info.Protect == PAGE_GUARD) {
-			std::wcout << ORANGE << L"\n[-] Не читаемо, следущий\n" << L"\n" << RESET;
-			file << ORANGE <<L"\n[-] Не читаемо, следущий\n" << L"\n" << RESET;
+			std::wcout << ORANGE << L"\n>> [-] Не читаемо, следущий\n" << L"\n" << RESET;
+			file << ORANGE <<L"\n>> [-] Не читаемо, следущий\n" << L"\n" << RESET;
 			SIZE_T Region = info.RegionSize;
 			LPCVOID Address = info.BaseAddress;
 
@@ -95,8 +95,8 @@ void MemoryScanner()
 		}
 
 		if (info.State == MEM_FREE || info.State == MEM_RESERVE) {
-			std::wcout << ORANGE << L"[-] Память не выделена для использования или участок свободен, следущий\n" << RESET;
-			file << L"[-] Память не выделена для использования или участок свободен, следущий\n";
+			std::wcout << ORANGE << L">> [-] Память не выделена для использования или участок свободен, следущий\n" << RESET;
+			file << L">> [-] Память не выделена для использования или участок свободен, следущий\n";
 			SIZE_T Region = info.RegionSize;
 			LPCVOID Address = info.BaseAddress;
 
@@ -117,21 +117,21 @@ void MemoryScanner()
 			// Вывод в консоль
 			std::wcout << CYAN;
 
-			std::wcout << L"[+] Что выдало Результат номер: " << count << L"\n";
-			std::wcout << L"[+] Протект: " << info.Protect << L"\n";
-			std::wcout << L"[+] State: " << info.State << L"\n";
-			std::wcout << L"[+] BaseAddress: " << info.BaseAddress << L"\n";
-			std::wcout << L"[+] RegionSize: " << info.RegionSize << L"\n";
-			std::wcout << L"[+] Type: " << info.Type << L"\n";
+			std::wcout << L">> [+] Что выдало Результат номер: " << count << L"\n";
+			std::wcout << L">> [+] Протект: " << info.Protect << L"\n";
+			std::wcout << L">> [+] State: " << info.State << L"\n";
+			std::wcout << L">> [+] BaseAddress: " << info.BaseAddress << L"\n";
+			std::wcout << L">> [+] RegionSize: " << info.RegionSize << L"\n";
+			std::wcout << L">> [+] Type: " << info.Type << L"\n";
 
 			std::wcout << RESET;
 			// Запись в файл
-			file << L"[+] Что выдало Результат номер: " << count << L"\n";
-			file << L"[+] Протект: " << info.Protect << L"\n";
-			file << L"[+] State: " << info.State << L"\n";
-			file << L"[+] BaseAddress: " << info.BaseAddress << L"\n";
-			file << L"[+] RegionSize: " << info.RegionSize << L"\n";
-			file << L"[+] Type: " << info.Type << L"\n";
+			file << L">> [+] Что выдало Результат номер: " << count << L"\n";
+			file << L">> [+] Протект: " << info.Protect << L"\n";
+			file << L">> [+] State: " << info.State << L"\n";
+			file << L">> [+] BaseAddress: " << info.BaseAddress << L"\n";
+			file << L">> [+] RegionSize: " << info.RegionSize << L"\n";
+			file << L">> [+] Type: " << info.Type << L"\n";
 			
 
 			unsigned char bytes[4096] = {};
@@ -148,8 +148,8 @@ void MemoryScanner()
 
 
 			if (success && bytesRead > 0) {
-				std::wcout << GREEN << L"\n[+] Чтение выполнено успешно. Байтов прочитано: " << bytesRead << L"\n" << RESET;
-				file << L"\n[+] Чтение выполнено успешно. Байтов прочитано: " << bytesRead << L"\n";
+				std::wcout << GREEN << L"\n>> [+] Чтение выполнено успешно. Байтов прочитано: " << bytesRead << L"\n" << RESET;
+				file << L"\n>> [+] Чтение выполнено успешно. Байтов прочитано: " << bytesRead << L"\n";
 
 
 				// Чтение байтов
@@ -183,8 +183,8 @@ void MemoryScanner()
 
 			else {
 				resultOB.clear();
-				std::wcout << ORANGE << L"\n[-] Чтение не удалось" << L"\n" << RESET;
-				file << L"\n[-] Чтение не удалось" << L"\n";
+				std::wcout << ORANGE << L"\n>> [-] Чтение не удалось" << L"\n" << RESET;
+				file << L"\n>> [-] Чтение не удалось" << L"\n";
 			}
 			
 			
@@ -194,8 +194,8 @@ void MemoryScanner()
 			uintptr_t nextAddress = reinterpret_cast<uintptr_t>(Address) + Region;
 			
 
-			std::wcout << ORANGE << L"NextAddress: " << nextAddress << L"\n[+-] Следущий адресс который ищем если можно конечно" << L"\n" << RESET;
-			file << L"" << nextAddress << L"\n[+-] Следущий адресс который ищем если можно конечно" << L"\n";
+			std::wcout << ORANGE << L">> NextAddress: " << nextAddress << L"\n[+-] Следущий адресс который ищем если можно конечно" << L"\n" << RESET;
+			file << L"" << nextAddress << L"\n>> [+-] Следущий адресс который ищем если можно конечно" << L"\n";
 
 			result = VirtualQueryEx(
 				process,

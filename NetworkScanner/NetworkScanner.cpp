@@ -38,7 +38,7 @@ void NetworkScanner()
 	int choice = -1;
 
     if (!(std::cin >> choice)) {
-		std::cout << RED << "[-] Ошибка. Ввод не был прочитан\n" << RESET;
+		std::cout << RED << ">> [-] Ошибка. Ввод не был прочитан\n" << RESET;
 		std::cin.clear();
 		std::cin.ignore(1000000, '\n');
 		return;
@@ -58,7 +58,7 @@ void NetworkScanner()
 		return;
 
 	default:
-		std::cout << RED << "[-] Ошибка. Неверный выбор\n" << RESET;
+		std::cout << RED << ">> [-] Ошибка. Неверный выбор\n" << RESET;
 		std::cin.clear();
 		std::cin.ignore(1000000, '\n');
     }

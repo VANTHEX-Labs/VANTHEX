@@ -5,6 +5,7 @@
 #include <vector>
 #include <TlHelp32.h>
 #include <fstream>
+#include <string>
 
 #include "TcpScanner.h"
 
@@ -273,13 +274,13 @@ void TcpScanner()
     else if (pid_name == 2) {
 		std::wcout << RESET;
         std::wcout << L">> Введите имя процесса (например: notepad.exe): " << ORANGE;
-
+        std::getline(std::wcin >> std::ws, ProcessName);
         // Проверяю успешность чтения имени
-        if (!(std::wcin >> ProcessName)) {
-            std::wcout << RED << L">> [-] Ошибка. Имя процесса не было прочитано\n" << RESET;
+        if (ProcessName.empty()) {
+            std::wcout << RED << L">> [-] Ошибка. Имя процесса не может быть пустым\n" << RESET;
             std::wcin.clear();
             std::wcin.ignore(1000000, '\n');
-            file << L">> [-] Ошибка. Имя процесса не было прочитано\n";
+            file << L">> [-] Ошибка. Имя процесса не может быть пустым\n";
             CloseHandle(hSnap);
             return;
         }
