@@ -145,6 +145,9 @@
     <ClCompile Include="NetworkScanner\UdpCore\Udp_core.cpp" />
     <ClCompile Include="PathScanner\Path_core.cpp" />
     <ClCompile Include="ProcessScanner\BlockProcessChecker.cpp" />
+    <ClCompile Include="ProcessScanner\ProcessCheckerALL\Process_ALL.cpp" />
+    <ClCompile Include="ProcessScanner\ProcessCheckerName\ProcessCheckerName.cpp" />
+    <ClCompile Include="ProcessScanner\ProcessCheckerPID\ProcessCheckerPID.cpp" />
     <ClCompile Include="SHA256\SHA_core.cpp" />
     <ClCompile Include="VANTHEX.cpp" />
   </ItemGroup>
@@ -154,6 +157,9 @@
     <ClInclude Include="NetworkScanner\TcpCore\TcpScanner.h" />
     <ClInclude Include="NetworkScanner\UdpCore\UdpScanner.h" />
     <ClInclude Include="PathScanner\PathScanner.h" />
+    <ClInclude Include="ProcessScanner\ProcessCheckerALL\ProcessCheckerALL.h" />
+    <ClInclude Include="ProcessScanner\ProcessCheckerName\ProcessCheckerName.h" />
+    <ClInclude Include="ProcessScanner\ProcessCheckerPID\ProcessCheckerPID.h" />
     <ClInclude Include="ProcessScanner\ProcessScanner.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SHA256\SHAChecker.h" />

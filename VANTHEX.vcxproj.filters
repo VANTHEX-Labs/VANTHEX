@@ -18,9 +18,6 @@
     <ClInclude Include="MemoryScanner\MemoryScanner.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="ProcessScanner\ProcessScanner.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="NetworkScanner\NetworkScanner.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -37,6 +34,18 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="SHA256\SHAChecker.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessScanner\ProcessCheckerALL\ProcessCheckerALL.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessScanner\ProcessScanner.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessScanner\ProcessCheckerPID\ProcessCheckerPID.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessScanner\ProcessCheckerName\ProcessCheckerName.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
@@ -63,6 +72,15 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="SHA256\SHA_core.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessScanner\ProcessCheckerALL\Process_ALL.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessScanner\ProcessCheckerPID\ProcessCheckerPID.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcessScanner\ProcessCheckerName\ProcessCheckerName.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

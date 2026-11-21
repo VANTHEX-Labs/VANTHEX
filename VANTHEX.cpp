@@ -14,7 +14,9 @@
 #define GREY    "\033[90m"
 #define GREEN   "\033[38;2;80;220;150m"
 #define ORANGE  "\033[38;2;255;165;0m" 
+
 #define RED     "\033[38;2;255;80;100m" // ошибка
+
 
 
 
