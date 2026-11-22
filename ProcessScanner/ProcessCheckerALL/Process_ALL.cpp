@@ -5,6 +5,8 @@
 #include <fstream>
 #include <chrono>
 #include <vector>
+#include <unordered_map>
+#include <sstream>
 
 #include "ProcessCheckerALL.h"
 
@@ -32,6 +34,21 @@ void ProcessCheckerALL() {
 
 	setlocale(LC_ALL, ".UTF8");
 
+	int choice = 0;
+
+	std::wcout << CYAN << L"     >> Выбери 1 - полный вывод(консоль + txt, медленно). 2 - Ввод только в файл txt(быстро. В файл: process_list_ALL.txt): " << ORANGE;
+	if (!(std::wcin >> choice)) {
+		std::cout << RED << ">> [-] Ошибка. Ввод не был прочитан\n" << RESET;
+		std::cin.clear();
+		std::cin.ignore(1000000, '\n');
+		return;
+	}
+	if (choice != 1 && choice != 2) {
+		std::wcin.clear();
+		std::wcin.ignore(1000000, '\n');
+		std::wcout << RED << "\n     >> [-] Unknown option!\n" << RESET;
+		return;
+	}
 	// Делаю снимок всех процессов в системе
 	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 
@@ -49,14 +66,18 @@ void ProcessCheckerALL() {
 	// Выделяю структуру под информацию о процессе
 	PROCESSENTRY32W process{};
 	process.dwSize = sizeof(PROCESSENTRY32W);
-
-	std::wcout << GREEN << L"\n\n=-= НАЧИНАЮ СКАН ВСЕХ ПРОЦЕССОВ =-=\n";
-
 	// Получаю время запуска
 	std::time_t now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 
-	std::wcout << L"=-= Время запуска: " << std::put_time(std::localtime(&now), L"%Y-%m-%d %H:%M:%S") << L" =-=\n" << RESET;
-	std::wcout << L"\n\n";
+	if (choice == 1) {
+		std::wcout << GREEN << L"\n\n=-= НАЧИНАЮ СКАН ВСЕХ ПРОЦЕССОВ =-=\n";
+
+		
+
+		std::wcout << L"=-= Время запуска: " << std::put_time(std::localtime(&now), L"%Y-%m-%d %H:%M:%S") << L" =-=\n" << RESET;
+		std::wcout << L"\n\n";
+	}
+	
 
 	file << L"=-= Время запуска: " << std::put_time(std::localtime(&now), L"%Y-%m-%d %H:%M:%S") << L" =-=\n";
 
@@ -83,84 +104,66 @@ void ProcessCheckerALL() {
 		std::wstring ProcessName;
 	};
 	std::vector<ProcessInfo> ProcessParent;
+	std::unordered_map<DWORD, ProcessInfo> processMap; // мапа
+	// сбор процессов
 	do {
 
 		DWORD process_id = process.th32ProcessID;
 		DWORD parent_id = process.th32ParentProcessID;
-		
 		std::wstring process_name = process.szExeFile;
-		ProcessParent.push_back({ process_id, parent_id, process_name });
+
+		ProcessInfo info{ process_id, parent_id, process_name };
+		ProcessParent.push_back(info); // использую вектор
+		processMap[process_id] = info; // использую карту
 
 	} while (Process32NextW(hSnap, &process));
 
-	for (DWORD i = 0; i < ProcessParent.size(); i++) {
+	// ВЫВОД
+	std::wstringstream output; // сюда складываю для увеличевания скорости вывода (консоль)
+	std::wstringstream fileOutput; // сюда складываю для увеличевания скорости вывода (файл)
 
-		auto parent = std::find_if(ProcessParent.begin(), ProcessParent.end(), [parent_id = ProcessParent[i].ParentID](const ProcessInfo& process)
-			{
-				return process.PID == parent_id;
+	for (const auto& proc : ProcessParent) {
+		fileOutput << L">> PID: " << proc.PID << L" | NAME: " << proc.ProcessName << L"\n";
+		output << CYAN << L">> PID: " << proc.PID << L" | NAME: " << proc.ProcessName << L"\n" << RESET;
+		
+
+		// Родитель
+		DWORD currentPID = proc.ParentID;
+		int count = 1;
+
+		while (count <= 30) {
+			auto it = processMap.find(currentPID);
+
+			if (it == processMap.end()) {
+				output << ORANGE << L"Parent count: [" << count << L"] PID: " << currentPID << RED << L" | NAME : UNKNOWN\n" << RESET;
+				fileOutput << L"Parent count: [" << count << L"] PID: " << currentPID << L" | NAME : UNKNOWN\n";
+				break;
 			}
-		);
-		DWORD Process_id = ProcessParent[i].PID;
-		std::wstring ProcessName = ProcessParent[i].ProcessName;
+			fileOutput << L"Parent count: [" << count << L"] PID: " << it->second.PID << L" | NAME: " << it->second.ProcessName << "\n";
+			output << ORANGE << L"Parent count: [" << count << L"] PID: " << it->second.PID << L" | NAME: " << it->second.ProcessName << RESET << "\n";
+			
 
-		DWORD Parent_id = ProcessParent[i].ParentID;
-		std::wstring ParentName = parent->ProcessName;
+			// переходим к следущему
 
-		std::wcout << CYAN << L"PID: " << Process_id << L" | NAME: " << ProcessName << "\n" << RESET;
-		file << L"PID: " << Process_id << L" | NAME: " << ProcessName << "\n";
+			currentPID = it->second.ParentID;
 
-		if (parent != ProcessParent.end()) {
-			std::wstring ParentName = parent->ProcessName;
-			DWORD GrandParent_id = parent->ParentID;
-
-			std::wcout << ORANGE << L"Parent PID: " << Parent_id << L" | Parent NAME: " << ParentName << "\n" << RESET;
-			file << L"Parent PID: " << Parent_id << L" | Parent NAME: " << ParentName << "\n";
-			DWORD counter = 30;
-			for (DWORD i = 0; i < counter; i++) {
-				// Ищу родительский процесс
-				auto parent = std::find_if(ProcessParent.begin(), ProcessParent.end(), [Parent_id](const ProcessInfo& process)
-					{
-						return process.PID == Parent_id;
-					}
-				);
-				if (parent == ProcessParent.end()) {
-					continue;
-				}
-				// Ищу родителя родительского процесса
-				auto grandparent = std::find_if(ProcessParent.begin(), ProcessParent.end(), [GrandParent_id](const ProcessInfo& process)
-					{
-						return process.PID == GrandParent_id;
-					}
-				);
-				if (grandparent->ParentID == GrandParent_id) {
-					break;
-				}
-				if (grandparent != ProcessParent.end()) {
-					std::wstring GrandParentName = grandparent->ProcessName;
-
-					std::wcout << ORANGE << L"Grandparent PID: " << GrandParent_id << L" | Grandparent NAME: " << GrandParentName << "\n" << RESET;
-					file << L"Grandparent PID: " << GrandParent_id << L" | Grandparent NAME: " << GrandParentName << "\n";
-					Parent_id = GrandParent_id;
-					GrandParent_id = grandparent->ParentID;
-				}
-				else {
-					std::wcout << ORANGE << L"Grandparent PID: " << GrandParent_id << RED << L" | Grandparent NAME: Unknown\n" << RESET;
-					file << L"Grandparent PID: " << GrandParent_id << L" | Grandparent NAME: Unknown\n";
-					Parent_id = GrandParent_id;
-					GrandParent_id = grandparent->ParentID;
-				}
+			if (currentPID == 0 || currentPID == it->second.PID) {
+				break;
 			}
 
 
+			count++;
 		}
-		else {
-			std::wcout << ORANGE << L"Parent PID: " << Parent_id << RED << L" | Parent NAME: Unknown\n" << RESET;
-			file << L"Parent PID: " << Parent_id << L" | Parent NAME: Unknown\n";
-		}
+		fileOutput << L"\n==========\n";
+		output << L"\n==========\n";
 
-		std::wcout << std::wstring(10, '=') << "\n";
-		file << std::wstring(10, '=') << "\n";
 	}
+	std::wstring result = output.str();
+	std::wstring fileResult = fileOutput.str();
+	if (choice == 1) {
+		std::wcout << result;
+	}
+	file << fileResult;
 
 
 	std::wcout << RESET;
@@ -180,7 +183,7 @@ void ProcessCheckerALL() {
 	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - time_start).count();
 
 	std::wcout << GREEN << L"\n\n=-= СКАН ПРОЦЕССОВ ЗАВЕРШЕН =-=\n";
-	std::wcout << L">> [+] Список процессов сохранен в process_list.txt\n";
+	std::wcout << L">> [+] Список процессов сохранен в process_list_ALL.txt\n";
 	std::wcout << L">> [+] Потрачено времени: " << elapsed << L" ms\n" << RESET;
 
 	file << L"=-= СКАН ПРОЦЕССОВ ЗАВЕРШЕН =-=\n";
