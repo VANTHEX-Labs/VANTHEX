@@ -7,6 +7,7 @@
 #include "NetworkScanner/NetworkScanner.h"
 #include "PathScanner/PathScanner.h"
 #include "SHA256/SHAChecker.h"
+#include "Command/ALL.h"
 
 #define RESET   "\033[0m"
 #define PURPLE  "\033[38;2;160;90;255m" // основной цвет
@@ -45,7 +46,8 @@ void ShowMenu()
     std::cout << PURPLE << "     [2] " << WHITE << "Memory Scanner (need PID)" << "\n";
     std::cout << PURPLE << "     [3] " << WHITE << "Network Scanner (need PID or Name)" << "\n";
     std::cout << PURPLE << "     [4] " << WHITE << "Path Scanner (need PID)" << "\n";
-    std::cout << PURPLE << "     [5] " << WHITE << "SHA256 Checker (need Path)" << "\n\n";
+    std::cout << PURPLE << "     [5] " << WHITE << "SHA256 Checker (need Path)" << "\n";
+    std::cout << PURPLE << "     [6] " << WHITE << "Full Process Analysis(need PID)\n\n";
     std::cout << GREY << "     " << std::string(102, '-') << "\n";
     std::cout << ORANGE << "     [0] " << WHITE << "Exit VANTHEX\n";
     std::cout << GREY << "     " << std::string(102, '-') << "\n\n";
@@ -99,6 +101,11 @@ int main()
         case 5:
             std::cout << RESET;
             SHA_Checker();
+            break;
+        
+        case 6:
+            std::cout << RESET;
+            ALL();
             break;
 
         case 0:

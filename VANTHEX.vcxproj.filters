@@ -48,6 +48,9 @@
     <ClInclude Include="ProcessScanner\ProcessCheckerName\ProcessCheckerName.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Command\ALL.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="VANTHEX.cpp">
@@ -81,6 +84,9 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="ProcessScanner\ProcessCheckerName\ProcessCheckerName.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Command\Command.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

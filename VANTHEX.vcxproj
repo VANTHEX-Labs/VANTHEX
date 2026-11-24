@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -139,6 +139,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Command\Command.cpp" />
     <ClCompile Include="MemoryScanner\Memory_core.cpp" />
     <ClCompile Include="NetworkScanner\NetworkScanner.cpp" />
     <ClCompile Include="NetworkScanner\TcpCore\Tcp_core.cpp" />
@@ -152,6 +153,7 @@
     <ClCompile Include="VANTHEX.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Command\ALL.h" />
     <ClInclude Include="MemoryScanner\MemoryScanner.h" />
     <ClInclude Include="NetworkScanner\NetworkScanner.h" />
     <ClInclude Include="NetworkScanner\TcpCore\TcpScanner.h" />
