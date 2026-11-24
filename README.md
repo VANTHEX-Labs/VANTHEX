@@ -1,7 +1,5 @@
 # VANTHEX
 
-<img width="256" height="256" alt="VANTHEX" src="https://github.com/user-attachments/assets/fe7336a3-c96e-4dc8-8f4b-374449dd7cac" />
-
 **Windows System Analysis Console**
 
 VANTHEX is an experimental Windows system analysis tool written in C++. It provides a set of console-based modules for inspecting running processes, process memory, network activity, executable paths, and file identity through SHA-256 hashing.
@@ -14,20 +12,43 @@ VANTHEX focuses on collecting and presenting system information. It does not tre
 
 ## Features
 
-- **Process Scanner** — Enumerate all running processes or inspect processes by a specific PID or process name. Display process information, including PID and available parent-process details: 
-<img width="507" height="177" alt="изображение" src="https://github.com/user-attachments/assets/0286bcf7-f939-4607-9720-b06f94dacfb8" />
+- **Process Scanner** — Enumerate all running processes or inspect processes by a specific PID or process name. Display process information, including PID and available parent-process details:
 
 - **Network Scanner** — Inspect TCP connections and UDP endpoints for IPv4 and IPv6. Network information can be examined in relation to process IDs or process names.
+
 - **Process Memory Dump** — Dump accessible memory regions of a selected process and extract printable strings from the collected data. Memory access depends on process permissions and Windows restrictions.
-- **Process Path Checker** — Retrieve the full executable path of a process by PID:  <img width="517" height="96" alt="изображение" src="https://github.com/user-attachments/assets/a71dc9ea-76ff-4662-8179-9a1503319367" />
+
+- **Process Path Checker** — Retrieve the full executable path of a process by PID:
+
+  ```
+  == PATH SCANNER ==
+  >> 1 — Найти путь по PID, 2 — Вывод путей всех процессов: 1
+  >> Введите PID: 16560
+  >> Путь: C:\Program Files\Mozilla Firefox\firefox.exe
+  ================
+  ```
+
 - **SHA-256 File Checker** — Calculate the SHA-256 hash of a user-specified file for identification, integrity verification, and further analysis:
-<img width="663" height="86" alt="изображение" src="https://github.com/user-attachments/assets/303b4b7f-47b5-40fd-bb4c-a1d06b6ee34f" />
+
+  ```
+  VANTHEX :: Select module > 5
+  Введите путь к EXE файлу: C:\Program Files\Mozilla Firefox\firefox.exe
+
+  SHA256: 4ddac0767cb3cf7196d5c3c5fad7fb0a83413453d59ff49a71168311455e1df2
+  ```
+
+- **Full File Check** — Run a complete analysis of a selected file in a single pass:
+  - Parent process lookup for the target process.
+  - Network activity inspection (TCP and UDP, IPv4 and IPv6).
+  - Executable path resolution.
+  - SHA-256 hash calculation.
+  - Flexible report output: save to a **TXT** file or display in the **console + TXT** at the same time.
 
 - **Text Reports** — Save analysis output in readable text files for later review.
 
 ## Project Status
 
-**Version:** `0.1.7-alpha`
+**Version:** `0.1.8-alpha`
 
 VANTHEX is actively developed. The project is currently in its alpha stage, and features, output formats, and internal implementation may change in future releases.
 
@@ -62,7 +83,7 @@ VANTHEX is a system inspection and analysis tool. It is not a replacement for pr
 
 ---
 
-# VANTHEX
+## VANTHEX
 
 **Консоль анализа системы Windows**
 
@@ -76,20 +97,43 @@ VANTHEX сосредоточен на сборе и представлении �
 
 ## Возможности
 
-- **Process Scanner** — перечисление всех запущенных процессов или поиск процессов по конкретному PID либо имени. Отображение информации о процессах, включая PID и доступные сведения о родительском процессе: 
-<img width="507" height="177" alt="изображение" src="https://github.com/user-attachments/assets/0286bcf7-f939-4607-9720-b06f94dacfb8" />
+- **Process Scanner** — перечисление всех запущенных процессов или поиск процессов по конкретному PID либо имени. Отображение информации о процессах, включая PID и доступные сведения о родительском процессе:
 
 - **Network Scanner** — анализ TCP-соединений и UDP-конечных точек для IPv4 и IPv6. Сетевую информацию можно рассматривать в привязке к PID или имени процесса.
+
 - **Process Memory Dump** — создание дампа доступных областей памяти выбранного процесса и извлечение печатных строк из собранных данных. Доступ к памяти зависит от прав процесса и ограничений Windows.
-- **Process Path Checker** — получение полного пути к исполняемому файлу процесса по PID: <img width="517" height="96" alt="изображение" src="https://github.com/user-attachments/assets/a71dc9ea-76ff-4662-8179-9a1503319367" />
-- **SHA-256 File Checker** — вычисление SHA-256 хеша указанного пользователем файла для его идентификации, проверки целостности и дальнейшего анализа: 
-<img width="663" height="86" alt="изображение" src="https://github.com/user-attachments/assets/303b4b7f-47b5-40fd-bb4c-a1d06b6ee34f" />
+
+- **Process Path Checker** — получение полного пути к исполняемому файлу процесса по PID:
+
+  ```
+  == PATH SCANNER ==
+  >> 1 — Найти путь по PID, 2 — Вывод путей всех процессов: 1
+  >> Введите PID: 16560
+  >> Путь: C:\Program Files\Mozilla Firefox\firefox.exe
+  ================
+  ```
+
+- **SHA-256 File Checker** — вычисление SHA-256 хеша указанного пользователем файла для его идентификации, проверки целостности и дальнейшего анализа:
+
+  ```
+  VANTHEX :: Select module > 5
+  Введите путь к EXE файлу: C:\Program Files\Mozilla Firefox\firefox.exe
+
+  SHA256: 4ddac0767cb3cf7196d5c3c5fad7fb0a83413453d59ff49a71168311455e1df2
+  ```
+
+- **Full File Check** — полная проверка выбранного файла за один запуск:
+  - Поиск родительского процесса целевого процесса.
+  - Анализ сетевой активности (TCP и UDP, IPv4 и IPv6).
+  - Определение полного пути к исполняемому файлу.
+  - Вычисление SHA-256 хеша.
+  - Гибкий вывод отчёта: сохранение в **TXT** или вывод в **консоль + TXT** одновременно.
 
 - **Text Reports** — сохранение результатов анализа в читаемые текстовые файлы для последующего изучения.
 
 ## Статус проекта
 
-**Версия:** `0.1.7-alpha`
+**Версия:** `0.1.8-alpha`
 
 VANTHEX активно разрабатывается. Проект находится на стадии alpha, поэтому функциональность, форматы вывода и внутренняя реализация могут изменяться в будущих версиях.
 
