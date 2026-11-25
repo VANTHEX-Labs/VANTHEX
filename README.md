@@ -48,7 +48,7 @@ VANTHEX focuses on collecting and presenting system information. It does not tre
 
 ## Project Status
 
-**Version:** `0.1.8-alpha`
+**Version:** `0.1.9-alpha`
 
 VANTHEX is actively developed. The project is currently in its alpha stage, and features, output formats, and internal implementation may change in future releases.
 
@@ -133,7 +133,7 @@ VANTHEX сосредоточен на сборе и представлении �
 
 ## Статус проекта
 
-**Версия:** `0.1.8-alpha`
+**Версия:** `0.1.9-alpha`
 
 VANTHEX активно разрабатывается. Проект находится на стадии alpha, поэтому функциональность, форматы вывода и внутренняя реализация могут изменяться в будущих версиях.
 
