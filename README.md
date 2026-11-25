@@ -16,7 +16,7 @@ VANTHEX focuses on collecting and presenting system information. It does not tre
 
 - **Network Scanner** — Inspect TCP connections and UDP endpoints for IPv4 and IPv6. Network information can be examined in relation to process IDs or process names.
 
-- **Process Memory Dump** — Dump accessible memory regions of a selected process and extract printable strings from the collected data. Memory access depends on process permissions and Windows restrictions.
+- **Process Memory Dump** — Dump accessible memory regions of a selected process and extract printable ASCII and UTF-16 strings. The scanner filters out some garbage strings and highlights interesting ones. Output can be displayed in the console and saved to a TXT file, or saved to TXT only (faster). Memory access depends on process permissions and Windows restrictions.
 
 - **Process Path Checker** — Retrieve the full executable path of a process by PID:
 
@@ -101,7 +101,7 @@ VANTHEX сосредоточен на сборе и представлении �
 
 - **Network Scanner** — анализ TCP-соединений и UDP-конечных точек для IPv4 и IPv6. Сетевую информацию можно рассматривать в привязке к PID или имени процесса.
 
-- **Process Memory Dump** — создание дампа доступных областей памяти выбранного процесса и извлечение печатных строк из собранных данных. Доступ к памяти зависит от прав процесса и ограничений Windows.
+- **Process Memory Dump** — создание дампа доступных областей памяти выбранного процесса и извлечение печатных строк ASCII и UTF-16. Сканер отфильтровывает часть мусорных строк и подсвечивает интересные. Результат можно вывести в консоль и сохранить в TXT-файл либо сохранить только в TXT (быстрее). Доступ к памяти зависит от прав процесса и ограничений Windows.
 
 - **Process Path Checker** — получение полного пути к исполняемому файлу процесса по PID:
 
