@@ -59,9 +59,6 @@
     <ClCompile Include="NetworkScanner\NetworkScanner.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="MemoryScanner\Memory_core.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="ProcessScanner\BlockProcessChecker.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -87,6 +84,9 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Command\Command.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryScanner\Memory_core.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
