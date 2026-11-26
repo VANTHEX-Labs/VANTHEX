@@ -61,7 +61,7 @@ void ProcessCheckerPID() {
 		return;
 	}
 	if (PID_process == 0) {
-		std::wcout << ORANGE << L">> [-] Ошибка ввода PID\n" << RESET;
+		std::wcout << RED << L">> [-] Ошибка ввода PID\n" << RESET;
 		std::wcin.clear();
 		std::wcin.ignore(1000000, '\n');
 		file << L">> [-] Ошибка ввода PID\n";

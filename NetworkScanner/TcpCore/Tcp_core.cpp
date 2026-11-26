@@ -523,7 +523,8 @@ void TcpScanner()
 
         file << L"\n" << L">> [+] Local Scope ID: " << LocalScopeID << L"\n";
         file << L"\n" << L">> [+] Remote Scope ID: " << RemoteScopeID << L"\n\n";
-
+        
+        std::wcout << GREEN;
         // Вывод Состояний соединения
         switch (state_tcpTableIPv6)
         {

@@ -33,6 +33,7 @@ void NetworkScanner()
     std::cout << PURPLE << "     [2] " << RESET  << " Udp Scanner\n\n";
 	std::cout << "" << std::string(103, '-') << "\n";
 	std::cout << ORANGE << "     [0] " << RESET  << " Back to main menu\n" << RESET;
+	std::cout << "" << std::string(103, '-') << "\n\n";
 
     std::cout << PURPLE << "     NETWORK SCANNER" << GREY << " :: "<< RESET << " Select module > " << ORANGE;
 	int choice = -1;

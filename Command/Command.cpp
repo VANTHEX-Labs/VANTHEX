@@ -633,6 +633,7 @@ void ShowNetworkTCP(DWORD id, int choice) {
 		fileOutput << L"\n" << L">> [+] Local Scope ID: " << LocalScopeID << L"\n";
 		fileOutput << L"\n" << L">> [+] Remote Scope ID: " << RemoteScopeID << L"\n\n";
 
+		output << GREEN;
 		// Вывод Состояний соединения
 		switch (state_tcpTableIPv6)
 		{

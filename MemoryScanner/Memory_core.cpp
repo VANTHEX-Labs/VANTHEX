@@ -53,7 +53,7 @@ bool IsInterestingASCII(const std::string& str)
 	// если не нашли интересные строки
 	return false;
 }
-bool IsGarbage(const std::wstring str) {
+bool IsGarbage(const std::wstring& str) {
 
 	// проверка на мусор
 	if (str.length() <= 4) return true;
@@ -67,16 +67,16 @@ bool IsGarbage(const std::wstring str) {
 	return false;
 }
 
-bool IsGarbageASCII(const std::string str) {
+bool IsGarbageASCII(const std::string& str) {
 
 	// проверка на мусор
 	if (str.length() <= 4) return true;
 
 	size_t questionmarks = std::count(str.begin(), str.end(), '?');
-	if (questionmarks * 100 / str.length() > 30) return true; // проверка если вопросиков больше 30% то не выводим
+	if (questionmarks * 100 / str.length() >= 30) return true; // проверка если вопросиков больше или равно 30% то не выводим
 
 	size_t FirstSymbol = std::count(str.begin(), str.end(), str[0]);
-	if (FirstSymbol * 100 / str.length() > 50) return true; // проверка на одинаковые символы если больше 50% то не выводим
+	if (FirstSymbol * 100 / str.length() >= 50) return true; // если первый символ повторяется больше или равно 50% то не выводим
 
 	return false;
 
@@ -231,7 +231,7 @@ void MemoryScanner()
 		fileOutput << L">> [+] Type: " << info.Type << L"\n\n";
 
 
-			unsigned char bytes[64 * 1024] = {};
+			unsigned char bytes [64 * 1024] = {};
 			const size_t MIN_STRING_LEN = 8;
 			SIZE_T bytesRead = 0;
 
